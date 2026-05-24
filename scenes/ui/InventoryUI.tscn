@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://inventory_ui_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/inventory_ui.gd" id="1_inv_ui"]
+
+[node name="InventoryUI" type="CanvasLayer"]
+script = ExtResource("1_inv_ui")
+layer = 15
+
+[node name="InventoryPanel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left   = 0.5
+anchor_top    = 0.5
+anchor_right  = 0.5
+anchor_bottom = 0.5
+offset_left   = -240
+offset_top    = -200
+offset_right  = 240
+offset_bottom = 200
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryPanel"]
+anchors_preset = 15
+anchor_right  = 1.0
+anchor_bottom = 1.0
+offset_left   = 12
+offset_top    = 12
+offset_right  = -12
+offset_bottom = -12
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="InventoryPanel/VBoxContainer"]
+text = "Inventaire"
+theme_override_font_sizes/font_size = 16
+
+[node name="Grid" type="GridContainer" parent="InventoryPanel/VBoxContainer"]
+columns = 6
+size_flags_vertical = 3
+
+[node name="CloseBtn" type="Button" parent="InventoryPanel/VBoxContainer"]
+text = "Fermer [I]"
+
+[node name="HotbarPanel" type="Panel" parent="."]
+anchors_preset  = 7
+anchor_left     = 0.0
+anchor_top      = 1.0
+anchor_right    = 1.0
+anchor_bottom   = 1.0
+offset_top      = -72
+offset_bottom   = -8
+
+[node name="HotbarBox" type="HBoxContainer" parent="HotbarPanel"]
+anchors_preset        = 8
+anchor_left           = 0.5
+anchor_top            = 0.5
+anchor_right          = 0.5
+anchor_bottom         = 0.5
+offset_left           = -160
+offset_right          = 160
+theme_override_constants/separation = 8

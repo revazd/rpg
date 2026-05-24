@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://quest_ui_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/quest_ui.gd" id="1_quest_ui"]
+
+[node name="QuestUI" type="CanvasLayer"]
+script = ExtResource("1_quest_ui")
+layer = 18
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left   = 0.5
+anchor_top    = 0.5
+anchor_right  = 0.5
+anchor_bottom = 0.5
+offset_left   = -250
+offset_top    = -280
+offset_right  = 250
+offset_bottom = 280
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchors_preset = 15
+anchor_right  = 1.0
+anchor_bottom = 1.0
+offset_left   = 12
+offset_top    = 12
+offset_right  = -12
+offset_bottom = -12
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer"]
+text = "Journal de quetes"
+theme_override_font_sizes/font_size = 18
+
+[node name="Tabs" type="TabContainer" parent="Panel/VBoxContainer"]
+size_flags_vertical = 3
+
+[node name="Principales" type="VBoxContainer" parent="Panel/VBoxContainer/Tabs"]
+
+[node name="MainList" type="ItemList" parent="Panel/VBoxContainer/Tabs/Principales"]
+anchors_preset = 15
+anchor_right  = 1.0
+anchor_bottom = 1.0
+
+[node name="Secondaires" type="VBoxContainer" parent="Panel/VBoxContainer/Tabs"]
+
+[node name="SideList" type="ItemList" parent="Panel/VBoxContainer/Tabs/Secondaires"]
+anchors_preset = 15
+anchor_right  = 1.0
+anchor_bottom = 1.0
+
+[node name="DetailLabel" type="RichTextLabel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+bbcode_enabled = true
+fit_content = false
+scroll_active = true
+
+[node name="CloseBtn" type="Button" parent="Panel/VBoxContainer"]
+text = "Fermer [J]"

@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://b301128ect151"]
+
+[ext_resource type="Script" uid="uid://bcc6d61x0wvtv" path="res://scripts/entities/oven.gd" id="1_oven"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 24.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xkuqy"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"cooking",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="Oven" type="Area2D"]
+script = ExtResource("1_oven")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xkuqy")
+animation = &"open"

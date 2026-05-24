@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=3 uid="uid://oven_ui_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/oven_ui.gd" id="1_oven_ui"]
+
+[node name="OvenUI" type="CanvasLayer"]
+script = ExtResource("1_oven_ui")
+layer = 20
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left   = 0.5
+anchor_top    = 0.5
+anchor_right  = 0.5
+anchor_bottom = 0.5
+offset_left   = -200
+offset_top    = -250
+offset_right  = 200
+offset_bottom = 250
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchors_preset = 15
+anchor_right   = 1.0
+anchor_bottom  = 1.0
+offset_left    = 16
+offset_top     = 16
+offset_right   = -16
+offset_bottom  = -16
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer"]
+text = "Que voulez-vous cuire ?"
+theme_override_font_sizes/font_size = 18
+
+[node name="RecipeList" type="ItemList" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 120)
+
+[node name="DescLabel" type="Label" parent="Panel/VBoxContainer"]
+text = "Selectionne une recette."
+autowrap_mode = 3
+
+[node name="TempBox" type="HBoxContainer" parent="Panel/VBoxContainer"]
+
+[node name="TempLabel" type="Label" parent="Panel/VBoxContainer/TempBox"]
+text = "Temperature (C) : "
+
+[node name="TempSpinBox" type="SpinBox" parent="Panel/VBoxContainer/TempBox"]
+size_flags_horizontal = 3
+min_value = 100
+max_value = 300
+step = 10
+value = 180
+
+[node name="TimeBox" type="HBoxContainer" parent="Panel/VBoxContainer"]
+
+[node name="TimeLabelStatic" type="Label" parent="Panel/VBoxContainer/TimeBox"]
+text = "Temps de cuisson : "
+
+[node name="TimeLabel" type="Label" parent="Panel/VBoxContainer/TimeBox"]
+text = "---"
+
+[node name="ButtonBox" type="HBoxContainer" parent="Panel/VBoxContainer"]
+theme_override_constants/separation = 16
+
+[node name="StartBtn" type="Button" parent="Panel/VBoxContainer/ButtonBox"]
+size_flags_horizontal = 3
+text = "Enfourner"
+disabled = true
+
+[node name="CloseBtn" type="Button" parent="Panel/VBoxContainer/ButtonBox"]
+size_flags_horizontal = 3
+text = "Fermer"
