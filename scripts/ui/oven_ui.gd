@@ -2,7 +2,7 @@ extends CanvasLayer
 
 # UI du four
 
-var oven: Node = null  # référence au four
+var oven: Node = null
 
 @onready var recipe_list: ItemList = $Panel/VBoxContainer/RecipeList
 @onready var desc_label: Label = $Panel/VBoxContainer/DescLabel
@@ -11,7 +11,7 @@ var oven: Node = null  # référence au four
 @onready var start_btn: Button = $Panel/VBoxContainer/ButtonBox/StartBtn
 @onready var close_btn: Button = $Panel/VBoxContainer/ButtonBox/CloseBtn
 
-var _selected_recipe: RecipeData = null
+var _selected_recipe: Dictionary = {}
 
 
 func _ready() -> void:
@@ -27,7 +27,7 @@ func _ready() -> void:
 
 func refresh_recipes() -> void:
 	recipe_list.clear()
-	_selected_recipe = null
+	_selected_recipe = {}
 
 	desc_label.text = "Sélectionne une recette."
 	time_label.text = "---"
@@ -40,10 +40,7 @@ func refresh_recipes() -> void:
 		return
 
 	for recipe in unlocked:
-		if recipe is RecipeData:
-			recipe_list.add_item(recipe.item_name)
-		else:
-			push_error("Élément invalide dans unlocked_recipes")
+		recipe_list.add_item(recipe["item_name"])
 
 
 func _on_recipe_selected(index: int) -> void:
@@ -52,30 +49,21 @@ func _on_recipe_selected(index: int) -> void:
 	if index < 0 or index >= unlocked.size():
 		return
 
-	var data = unlocked[index]
+	_selected_recipe = unlocked[index]
 
-	if not (data is RecipeData):
-		push_error("Recette invalide à l'index: " + str(index))
-		return
-
-	var recipe: RecipeData = data
-
-	_selected_recipe = recipe
-
-	desc_label.text = recipe.description
-	time_label.text = str(int(recipe.required_time)) + " sec"
-	temp_spinbox.value = recipe.required_temp
+	desc_label.text = _selected_recipe["description"]
+	time_label.text = str(int(_selected_recipe["required_time"])) + " sec"
+	temp_spinbox.value = _selected_recipe["required_temp"]
 
 	start_btn.disabled = false
 
 
 func _on_start_pressed() -> void:
-	if _selected_recipe == null or oven == null:
+	if _selected_recipe.is_empty() or oven == null:
 		return
 
 	var temp: int = int(temp_spinbox.value)
 	oven.start_cooking(_selected_recipe, temp)
-
 	hide()
 
 

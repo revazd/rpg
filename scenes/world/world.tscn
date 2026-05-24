@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/InventoryUI.tscn" id="4_bq33v"]
 [ext_resource type="PackedScene" path="res://scenes/ui/QuestUI.tscn" id="5_j2gmx"]
 [ext_resource type="Texture2D" uid="uid://m6u0w4a8maj0" path="res://resources/professional_kitchen.png" id="6_bq33v"]
-[ext_resource type="PackedScene" path="res://scenes/entities/Oven.tscn" id="7_j2gmx"]
+[ext_resource type="PackedScene" uid="uid://b301128ect151" path="res://scenes/entities/Oven.tscn" id="7_j2gmx"]
 [ext_resource type="Texture2D" uid="uid://cw1klb60woevc" path="res://resources/atlas_32x.png" id="8_1yooq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1yooq"]
@@ -2855,7 +2855,12 @@ position = Vector2(241, 10.5)
 shape = SubResource("RectangleShape2D_5qq27")
 
 [node name="png" type="Area2D" parent="." groups=["npc"]]
+metadata/dialogue_file = "res://dialogue/npcs/villager.dialogue"
+metadata/NPC_Id = "baker"
+metadata/dialogue_cue = "start"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="png" groups=["npc"]]
 position = Vector2(154, 5)
 shape = SubResource("CircleShape2D_dlabj")
+
+[connection signal="interacted" from="Player" to="." method="_on_player_interacted"]

@@ -47,7 +47,7 @@ func _load_default_recipes() -> void:
 
 func unlock_recipe(recipe_name: String) -> void:
 	for r in all_recipes:
-		if r["item_name"] == recipe_name and not unlocked_recipes.has(r):
+		if r["item_name"].to_lower() == recipe_name.to_lower() and not unlocked_recipes.has(r):
 			unlocked_recipes.append(r)
 			recipe_unlocked.emit(r)
 			return

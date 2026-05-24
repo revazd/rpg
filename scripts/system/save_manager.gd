@@ -23,12 +23,13 @@ func save_game() -> void:
 	var inv = get_node_or_null("/root/Inventory")
 	var xp = get_node_or_null("/root/XPManager")
 	var quests = get_node_or_null("/root/QuestManager")
+	var recipes = get_node_or_null("/root/RecipeManager")
 	var data := {
 		"version": 2,
 		"inventory": inv.to_dict() if inv else {},
 		"xp": xp.to_dict() if xp else {},
 		"quests": quests.to_dict() if quests else {},
-"		recipes": get_node_or_null("/root/RecipeManager").to_dict() if get_node_or_null("/root/RecipeManager") else [],
+		"recipes": recipes.to_dict() if recipes else [],
 		"player_pos": _save_player_pos(),
 	}
 	var json_str := JSON.stringify(data, "\t")
@@ -62,20 +63,19 @@ func load_game() -> bool:
 	var inv = get_node_or_null("/root/Inventory")
 	var xp = get_node_or_null("/root/XPManager")
 	var quests = get_node_or_null("/root/QuestManager")
+	var recipes = get_node_or_null("/root/RecipeManager")
 	if inv:
 		inv.from_dict(data.get("inventory", {}))
 	if xp:
 		xp.from_dict(data.get("xp", {}))
 	if quests:
 		quests.from_dict(data.get("quests", {}))
+	if recipes:
+		recipes.from_dict(data.get("recipes", []))
 	_load_player_pos(data.get("player_pos", {}))
 	game_loaded.emit()
 	print("Sauvegarde chargee.")
-	var recipes = get_node_or_null("/root/RecipeManager")
-	if recipes:
-		recipes.from_dict(data.get("recipes", []))
 	return true
-
 
 
 func delete_save() -> void:

@@ -13,10 +13,10 @@ extends CanvasLayer
 #   ├── RichTextLabel (detail_label)
 #   └── Button (close_btn)
 
-@onready var main_list: ItemList       = $Panel/VBoxContainer/Tabs/Principales/MainList
-@onready var side_list: ItemList       = $Panel/VBoxContainer/Tabs/Secondaires/SideList
+@onready var main_list: ItemList         = $Panel/VBoxContainer/Tabs/Principales/MainList
+@onready var side_list: ItemList         = $Panel/VBoxContainer/Tabs/Secondaires/SideList
 @onready var detail_label: RichTextLabel = $Panel/VBoxContainer/DetailLabel
-@onready var close_btn: Button         = $Panel/VBoxContainer/CloseBtn
+@onready var close_btn: Button           = $Panel/VBoxContainer/CloseBtn
 
 
 func _ready() -> void:
@@ -58,8 +58,10 @@ func refresh() -> void:
 			continue
 		if quest["type"] == "main":
 			main_list.add_item("[X] " + quest["title"])
+			main_list.set_item_metadata(main_list.item_count - 1, quest)
 		else:
 			side_list.add_item("[X] " + quest["title"])
+			side_list.set_item_metadata(side_list.item_count - 1, quest)
 
 
 func _on_main_selected(index: int) -> void:
