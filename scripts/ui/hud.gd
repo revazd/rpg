@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-@onready var health_bar: ProgressBar        = $HealthBar
 @onready var xp_bar: ProgressBar            = $XPBar
 @onready var level_label: Label             = $LevelLabel
 @onready var money_label: Label             = $MoneyLabel
@@ -19,11 +18,6 @@ func _ready() -> void:
 	Inventory.money_changed.connect(_on_money_changed)
 	_refresh_xp()
 	_on_money_changed(Inventory.money)
-
-
-func set_health(value: int) -> void:
-	current_hp = clamp(value, 0, max_hp)
-	_update_health_bar()
 
 
 func show_notification(message: String, duration: float = 3.0) -> void:

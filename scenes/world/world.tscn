@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://sahsthqn3yju"]
+[gd_scene load_steps=18 format=3 uid="uid://sahsthqn3yju"]
 
 [ext_resource type="PackedScene" uid="uid://d1pe3jnud17cf" path="res://scenes/entities/Player.tscn" id="1_dphjl"]
 [ext_resource type="Script" uid="uid://batjsnyn0tlwj" path="res://scripts/entities/world.gd" id="1_j2gmx"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://m6u0w4a8maj0" path="res://resources/professional_kitchen.png" id="6_bq33v"]
 [ext_resource type="PackedScene" uid="uid://b301128ect151" path="res://scenes/entities/Oven.tscn" id="7_j2gmx"]
 [ext_resource type="Texture2D" uid="uid://cw1klb60woevc" path="res://resources/atlas_32x.png" id="8_1yooq"]
+[ext_resource type="Texture2D" uid="uid://pgqeej138vxt" path="res://icon.svg" id="10_5qq27"]
+[ext_resource type="PackedScene" uid="uid://cghrtm72lsptt" path="res://scenes/hud.tscn" id="11_dlabj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1yooq"]
 texture = ExtResource("6_bq33v")
@@ -2822,7 +2824,10 @@ sources/1 = SubResource("TileSetAtlasSource_gb53w")
 size = Vector2(24, 39)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dlabj"]
-radius = 26.0
+radius = 38.910152
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_srmg5"]
+size = Vector2(34, 40)
 
 [node name="world" type="Node2D"]
 script = ExtResource("1_j2gmx")
@@ -2830,9 +2835,12 @@ script = ExtResource("1_j2gmx")
 [node name="Player" parent="." instance=ExtResource("1_dphjl")]
 scale = Vector2(0.3, 0.3)
 
+[node name="hud" parent="Player" instance=ExtResource("11_dlabj")]
+
 [node name="ShopUI" parent="Player" instance=ExtResource("2_v5dby")]
 
 [node name="OvenUI" parent="Player" instance=ExtResource("3_t5ptc")]
+visible = false
 
 [node name="InventoryUI" parent="Player" instance=ExtResource("4_bq33v")]
 
@@ -2862,5 +2870,16 @@ metadata/dialogue_cue = "start"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="png" groups=["npc"]]
 position = Vector2(154, 5)
 shape = SubResource("CircleShape2D_dlabj")
+
+[node name="Area2D" type="Area2D" parent="." groups=["npc"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(67, 138)
+shape = SubResource("RectangleShape2D_srmg5")
+
+[node name="Icon" type="Sprite2D" parent="Area2D"]
+position = Vector2(66, 135.00002)
+scale = Vector2(0.296875, 0.3671875)
+texture = ExtResource("10_5qq27")
 
 [connection signal="interacted" from="Player" to="." method="_on_player_interacted"]

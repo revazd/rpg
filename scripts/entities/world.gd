@@ -22,12 +22,21 @@ func _ready() -> void:
 	camera.position_smoothing_speed   = 6.0
 	_setup_camera_limits()
 
+	# Charge la save si elle existe
 	if SaveManager.has_save():
 		var ok := SaveManager.load_game()
 		if not ok:
 			push_warning("World: echec du chargement.")
+		# Les quêtes actives sont restaurées depuis la save,
+		# on démarre uniquement celles qui n'ont jamais démarré
+		_start_default_quests()
+	else:
+		# Première partie : démarre les quêtes de départ
+		_start_default_quests()
 
-	# Demarre les quetes disponibles sans prerequis
+
+func _start_default_quests() -> void:
+	# start_quest() ignore automatiquement les quêtes déjà actives ou terminées
 	QuestManager.start_quest("main_01")
 	QuestManager.start_quest("side_bread")
 	QuestManager.start_quest("side_gateau")
@@ -37,6 +46,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("save_game"):
 		SaveManager.save_game()
 		_notify("Partie sauvegardee.")
+
+
+# Sauvegarde automatiquement avant de quitter la scène
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE or what == NOTIFICATION_EXIT_TREE:
+		SaveManager.save_game()
 
 
 func _setup_camera_limits() -> void:
@@ -56,10 +71,8 @@ func _on_player_interacted(area: Area2D) -> void:
 		var npc_id: String = area.get_meta("npc_id", "")
 		var path: String   = area.get_meta("dialogue_file", "")
 
-		# Notifie le QuestManager
 		if npc_id != "":
 			QuestManager.notify_talk(npc_id)
-			# Verifie si le joueur peut livrer quelque chose a ce PNJ
 			_try_deliver_to(npc_id)
 
 		if path != "" and ResourceLoader.exists(path):

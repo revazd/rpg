@@ -31,7 +31,7 @@ func _get_hud():
 
 func _register_all_quests() -> void:
 	_register({
-		"id": "main_01", "type": "main",
+		"id": "png", "type": "png",
 		"title": "Premiers pas",
 		"description": "Parle au boulanger du village.",
 		"objectives": [
